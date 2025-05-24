@@ -4,3 +4,4 @@ from . import open_drawer_in_scene
 from . import put_on_in_scene
 from . import place_in_closed_drawer_in_scene
 from .put_spoon_on_cloth_in_coke_scene import PutSpoonOnClothInCokeSceneEnv
+from .google_robot_put_spoon_on_towel_env import GoogleRobotPutSpoonOnTowelEnv

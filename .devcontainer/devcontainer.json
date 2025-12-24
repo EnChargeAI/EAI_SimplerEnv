@@ -1,0 +1,32 @@
+{
+    // docker build . -t simpler-env
+    "image": "simpler_env",
+    "runArgs": [
+        "--name=simpler_env-ynn",
+        "--net=host",
+        "--ipc=host",
+        "--gpus",
+        "all",
+        "-e",
+        "NVIDIA_DRIVER_CAPABILITIES=all",
+        "--privileged"
+    ],
+    "mounts": [
+        "source=/home/takanori.yoshimoto/code/SimplerEnv,target=/app/SimplerEnv,type=bind",
+        "source=/home/takanori.yoshimoto/code/hsr_openpi/checkpoints,target=/data/checkpoints,type=bind"
+    ],
+    "workspaceFolder": "/app/SimplerEnv",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-azuretools.vscode-docker",
+                "github.copilot",
+                "github.vscode-pull-request-github"
+            ]
+        }
+    }
+}

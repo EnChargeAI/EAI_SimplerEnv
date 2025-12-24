@@ -116,7 +116,9 @@ class RT1Inference:
         self._initialize_task_description(task_description)
 
     @staticmethod
-    def _small_action_filter_google_robot(raw_action: dict[str, np.ndarray | tf.Tensor], arm_movement: bool = False, gripper: bool = True) -> dict[str, np.ndarray | tf.Tensor]:
+    def _small_action_filter_google_robot(
+        raw_action: dict[str, np.ndarray | tf.Tensor], arm_movement: bool = False, gripper: bool = True
+    ) -> dict[str, np.ndarray | tf.Tensor]:
         # small action filtering for google robot
         if arm_movement:
             raw_action["world_vector"] = tf.where(
@@ -147,7 +149,7 @@ class RT1Inference:
             )
         return raw_action
 
-    def step(self, image: np.ndarray, task_description: Optional[str] = None) -> tuple[dict[str, np.ndarray], dict[str, np.ndarray]]:
+    def step(self, image: np.ndarray, task_description: Optional[str] = None, *args, **kwargs) -> tuple[dict[str, np.ndarray], dict[str, np.ndarray]]:
         """
         Input:
             image: np.ndarray of shape (H, W, 3), uint8
@@ -165,7 +167,7 @@ class RT1Inference:
                 # task description has changed; update language embedding
                 # self._initialize_task_description(task_description)
                 self.reset(task_description)
-        
+
         assert image.dtype == np.uint8
         image = self._resize_image(image)
         self.observation["image"] = image
@@ -188,11 +190,7 @@ class RT1Inference:
         if self.action_rotation_mode == "axis_angle":
             action_rotation_delta = np.asarray(raw_action["rotation_delta"], dtype=np.float64)
             action_rotation_angle = np.linalg.norm(action_rotation_delta)
-            action_rotation_ax = (
-                action_rotation_delta / action_rotation_angle
-                if action_rotation_angle > 1e-6
-                else np.array([0.0, 1.0, 0.0])
-            )
+            action_rotation_ax = action_rotation_delta / action_rotation_angle if action_rotation_angle > 1e-6 else np.array([0.0, 1.0, 0.0])
             action["rot_axangle"] = action_rotation_ax * action_rotation_angle * self.action_scale
         elif self.action_rotation_mode in ["rpy", "ypr", "pry"]:
             if self.action_rotation_mode == "rpy":
@@ -256,9 +254,7 @@ class RT1Inference:
                 for action_sub_dimension in range(action[action_name].shape[0]):
                     # print(action_name, action_sub_dimension)
                     title = f"{action_name}_{action_sub_dimension}"
-                    predicted_action_name_to_values_over_time[title].append(
-                        predicted_raw_actions[i][action_name][action_sub_dimension]
-                    )
+                    predicted_action_name_to_values_over_time[title].append(predicted_raw_actions[i][action_name][action_sub_dimension])
 
         figure_layout = [["image"] * len(figure_layout), figure_layout]
 

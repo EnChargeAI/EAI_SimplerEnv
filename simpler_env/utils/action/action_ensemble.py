@@ -21,7 +21,7 @@ class ActionEnsembler:
             curr_act_preds = np.stack(
                 [pred_actions[i] for (i, pred_actions) in zip(range(num_actions - 1, -1, -1), self.action_history)]
             )
-        # more recent predictions get exponentially *less* weight than older predictions
+        # if temp > 0, more recent predictions get exponentially *less* weight than older predictions
         weights = np.exp(-self.action_ensemble_temp * np.arange(num_actions))
         weights = weights / weights.sum()
         # compute the weighted average across all predictions for this timestep

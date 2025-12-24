@@ -3,6 +3,9 @@ __pycache__
 _ext
 *.pyc
 *.so
+.venv/
+results/
+checkpoints/
 build/
 dist/
 *.egg-info/

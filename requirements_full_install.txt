@@ -25,3 +25,4 @@ matplotlib
 einops
 transformers
 scipy==1.12.0
+ManiSkill2_real2sim @ git+https://github.com/simpler-env/ManiSkill2_real2sim.git@ef7a4d4fdf4b69f2c2154db5b15b9ac8dfe10682

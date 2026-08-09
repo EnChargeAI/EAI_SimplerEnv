@@ -1,5 +1,5 @@
 mani-skill2-real2sim @ git+https://github.com/EnChargeAI/ThirdParty_ManiSkill2_real2sim@my_branch#egg=mani-skill2-real2sim
-ruckig @ git+https://github.com/pantor/ruckig.git@2249d57ffaa19ecdadeaab62daf97857813629ff
+ruckig==0.15.3 # need to pin ruckig since gpu7x has the old GLIBC 2.35
 gymnasium>=0.28.1,<1.0
 numpy==1.24.3
 sapien==2.2.2
